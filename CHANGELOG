@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+2.3.0
+-----
+
+2015-07-25
+
+This is a backwards compatible bugfix release.
+
+  * An option to disable auto remerging by make.conf changes
+  * Parameter to allow usage of custom overlay lists with layman
+  * Update puppetlabs/concat dependency
+  * Update for Facter 3.0.1
+  * Set attribute to an empty array if absent
+  * Handle empty strings passed in package_* resources
+  * Handle parsing of wildcard atoms
+
+
 2.2.0
 -----
 
@@ -135,4 +151,3 @@ Major thanks to Theo Chatzimichos for a ton of bugfixes and QA testing.
 2011-08-31
 
   * Initial pre-release
-
