@@ -9,7 +9,8 @@ Puppet::Type.type(:package_keywords).provide(:parsed,
 ) do
 
   desc "The package_keywords provider that uses the ParsedFile class"
-
+  text_line :comment, :match => /^\s*#/
+  text_line :blank, :match => /^\s*$/
   record_line :parsed, :fields => %w{name keywords}, :joiner => ' ', :rts => true do |line|
     Puppet::Provider::PortageFile.process_line(line, :keywords)
   end
