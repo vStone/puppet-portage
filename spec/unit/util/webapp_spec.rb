@@ -25,13 +25,13 @@ describe Puppet::Util::Webapp do
 
     valid_names.each do |name|
       it "should accept '#{name}' as a valid name" do
-        Puppet::Util::Webapp.valid_name?(name).should be_true
+        Puppet::Util::Webapp.valid_name?(name).should eq true
       end
     end
 
     invalid_names.each do |name|
       it "should reject '#{name}' as an invalid name" do
-        Puppet::Util::Webapp.valid_name?(name).should be_false
+        Puppet::Util::Webapp.valid_name?(name).should eq false
       end
     end
   end
@@ -55,13 +55,13 @@ describe Puppet::Util::Webapp do
 
     valid_paths.each do |path|
       it "should accept '#{path}' as a valid path" do
-        Puppet::Util::Webapp.valid_path?(path).should be_true
+        Puppet::Util::Webapp.valid_path?(path).should eq true
       end
     end
 
     invalid_paths.each do |path|
       it "should reject '#{path}' as an invalid path" do
-        Puppet::Util::Webapp.valid_path?(path).should be_false
+        Puppet::Util::Webapp.valid_path?(path).should eq false
       end
     end
   end
@@ -81,13 +81,13 @@ describe Puppet::Util::Webapp do
 
     valid_apps.each do |app|
       it "should accept '#{app}' as a valid app" do
-        Puppet::Util::Webapp.valid_app?(app).should be_true
+        Puppet::Util::Webapp.valid_app?(app).should eq true
       end
     end
 
     invalid_apps.each do |app|
       it "should reject '#{app}' as an invalid app" do
-        Puppet::Util::Webapp.valid_app?(app).should be_false
+        Puppet::Util::Webapp.valid_app?(app).should eq false
       end
     end
   end

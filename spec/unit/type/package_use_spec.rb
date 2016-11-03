@@ -64,7 +64,7 @@ describe Puppet::Type.type(:package_use) do
     end
 
     it "should properly handle nested arrays" do
-      described_class.new(:name => "sys-devel/gcc", :use => ["foo",["bar"]]).property(:use).insync?(["foo","bar"]).should be_true
+      described_class.new(:name => "sys-devel/gcc", :use => ["foo",["bar"]]).property(:use).insync?(["foo","bar"]).should eq true
     end
   end
 end

@@ -37,13 +37,13 @@ describe Puppet::Util::Portage do
 
     valid_atoms.each do |atom|
       it "should accept '#{atom}' as a valid name" do
-        Puppet::Util::Portage.valid_atom?(atom).should be_true
+        Puppet::Util::Portage.valid_atom?(atom).should eq true
       end
     end
 
     invalid_atoms.each do |atom|
       it "should reject #{atom} as an invalid name" do
-        Puppet::Util::Portage.valid_atom?(atom).should be_false
+        Puppet::Util::Portage.valid_atom?(atom).should eq false
       end
     end
   end
@@ -70,13 +70,13 @@ describe Puppet::Util::Portage do
 
     valid_packages.each do |package|
       it "should accept #{package} as valid" do
-        Puppet::Util::Portage.valid_package?(package).should be_true
+        Puppet::Util::Portage.valid_package?(package).should eq true
       end
     end
 
     invalid_packages.each do |package|
       it "should reject #{package} as invalid" do
-        Puppet::Util::Portage.valid_package?(package).should be_false
+        Puppet::Util::Portage.valid_package?(package).should eq false
       end
     end
   end
@@ -113,7 +113,7 @@ describe Puppet::Util::Portage do
 
     (valid_versions + valid_wildcards).each do |ver|
       it "should accept #{ver} as valid" do
-        Puppet::Util::Portage.valid_version?(ver).should be_true
+        Puppet::Util::Portage.valid_version?(ver).should eq true
       end
     end
 
@@ -124,14 +124,14 @@ describe Puppet::Util::Portage do
 
       version_strings.each do |ver|
         it "should accept #{ver} as valid" do
-          Puppet::Util::Portage.valid_version?(ver).should be_true
+          Puppet::Util::Portage.valid_version?(ver).should eq true
         end
       end
     end
 
     (invalid_versions + invalid_wildcards).each do |ver|
       it "should reject #{ver} as invalid" do
-        Puppet::Util::Portage.valid_version?(ver).should be_false
+        Puppet::Util::Portage.valid_version?(ver).should eq false
       end
     end
   end
@@ -159,7 +159,7 @@ describe Puppet::Util::Portage do
 
     valid_slots.each do |slot|
       it "should accept #{slot} as valid" do
-        Puppet::Util::Portage.valid_slot?(slot).should be_true
+        Puppet::Util::Portage.valid_slot?(slot).should eq true
       end
     end
 
@@ -175,14 +175,14 @@ describe Puppet::Util::Portage do
       end
       slots_with_operators.each do |slot_str|
         it "should accept #{slot_str} as valid" do
-          Puppet::Util::Portage.valid_slot?(slot_str).should be_true
+          Puppet::Util::Portage.valid_slot?(slot_str).should eq true
         end
       end
     end
 
     invalid_slots.each do |slot|
       it "should reject #{slot} as invalid" do
-        Puppet::Util::Portage.valid_slot?(slot).should be_false
+        Puppet::Util::Portage.valid_slot?(slot).should eq false
       end
     end
   end
