@@ -46,7 +46,7 @@ class portage (
   $portage_utils_use      = $portage::params::portage_utils_use,
 ) inherits portage::params {
 
-  include portage::install
+  include ::portage::install
 
   file { [
     '/etc/portage/package.keywords',
@@ -68,9 +68,9 @@ class portage (
   }
 
   concat { $make_conf:
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
+    owner => 'root',
+    group => 'root',
+    mode  => '0644',
   }
 
   if ($make_conf_remerge) {
@@ -80,7 +80,7 @@ class portage (
   concat::fragment { 'makeconf_header':
     target  => $make_conf,
     content => template('portage/makeconf.header.conf.erb'),
-    order   => '00'
+    order   => '00',
   }
 
 }

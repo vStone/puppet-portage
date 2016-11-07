@@ -1,6 +1,6 @@
 class portage::install {
 
-  include portage
+  include ::portage
 
   portage::package { 'sys-apps/portage':
     ensure   => $portage::portage_ensure,
