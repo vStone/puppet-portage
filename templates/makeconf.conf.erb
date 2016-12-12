@@ -1,5 +1,7 @@
 <% if @content == '' -%>
 <%= @name %>
+<% elsif @name == 'http_proxy' or @name == 'ftp_proxy' -%>
+<%= @name.downcase %>="<%= [@content].flatten.join(' ') %>"
 <% else -%>
 <%= @name.upcase %>="<%= [@content].flatten.join(' ') %>"
 <% end -%>
