@@ -16,6 +16,10 @@
 #
 # Portage keywords for the package.
 #
+# [*accept_keywords*]
+#
+# Portage accept_keywords for the package.
+#
 # [*target*]
 #
 # A default value for package.* targets
@@ -27,6 +31,10 @@
 # [*keywords_target*]
 #
 # An optional custom target for package keywords
+#
+# [*accept_keywords_target*]
+#
+# An optional custom target for package accept_keywords
 #
 # [*mask_target*]
 #
@@ -52,6 +60,14 @@
 #
 # An optional slot specification for package keywords
 #
+# [*accept_keywords_version*]
+#
+# An optional version specification for package accept_keywords
+#
+# [*accept_keywords_slot*]
+#
+# An optional slot specification for package accept_keywords
+#
 # [*mask_version*]
 #
 # An optional version specification for package mask
@@ -73,7 +89,7 @@
 #     portage::package { 'app-admin/puppet':
 #       ensure       => '3.0.1',
 #       use          => ['augeas', '-rrdtool'],
-#       keywords     => '~amd64',
+#       accept_keywords     => '~amd64',
 #       target       => 'puppet',
 #       mask_version => '<=2.7.18',
 #     }
@@ -82,6 +98,7 @@
 #
 #  * `puppet describe package_use`
 #  * `puppet describe package_keywords`
+#  * `puppet describe package_accept_keywords`
 #  * `puppet describe package_mask`
 #  * `puppet describe package_unmask`
 #
@@ -93,6 +110,9 @@ define portage::package (
   $keywords         = undef,
   $keywords_version = undef,
   $keywords_slot    = undef,
+  $accept_keywords         = undef,
+  $accept_keywords_version = undef,
+  $accept_keywords_slot    = undef,
   $mask_version     = undef,
   $mask_slot        = undef,
   $unmask_version   = undef,
@@ -100,6 +120,7 @@ define portage::package (
   $target           = undef,
   $use_target       = undef,
   $keywords_target  = undef,
+  $accept_keywords_target  = undef,
   $mask_target      = undef,
   $unmask_target    = undef,
 ) {
@@ -122,6 +143,13 @@ define portage::package (
   }
   else {
     $assigned_keywords_target = $target
+  }
+
+  if $accept_keywords_target {
+    $assigned_accept_keywords_target = $accept_keywords_target
+  }
+  else {
+    $assigned_accept_keywords_target = $target
   }
 
   if $mask_target {
@@ -174,6 +202,28 @@ define portage::package (
     package_keywords { $name:
       ensure => absent,
       target => $assigned_keywords_target,
+      notify => [Exec["rebuild_${atom}"], Package[$name]],
+    }
+  }
+  if $accept_keywords or $accept_keywords_version {
+    if $accept_keywords == 'all' {
+      $assigned_accept_keywords = undef
+    }
+    else {
+      $assigned_accept_keywords = $accept_keywords
+    }
+    package_accept_keywords { $name:
+      accept_keywords => $assigned_accept_keywords,
+      version         => $accept_keywords_version,
+      slot            => $accept_keywords_slot,
+      target          => $assigned_accept_keywords_target,
+      notify          => [Exec["rebuild_${atom}"], Package[$name]],
+    }
+  }
+  else {
+    package_accept_keywords { $name:
+      ensure => absent,
+      target => $assigned_accept_keywords_target,
       notify => [Exec["rebuild_${atom}"], Package[$name]],
     }
   }
