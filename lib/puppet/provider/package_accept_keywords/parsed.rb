@@ -11,8 +11,8 @@ Puppet::Type.type(:package_accept_keywords).provide(:parsed,
   desc "The package_accept_keywords provider that uses the ParsedFile class"
   text_line :comment, :match => /^\s*#/
   text_line :blank, :match => /^\s*$/
-  record_line :parsed, :fields => %w{name keywords}, :joiner => ' ', :rts => true do |line|
-    Puppet::Provider::PortageFile.process_line(line, :keywords)
+  record_line :parsed, :fields => %w{name accept_keywords}, :joiner => ' ', :rts => true do |line|
+    Puppet::Provider::PortageFile.process_line(line, :accept_keywords)
   end
 
   # Define the ParsedFile format hook
@@ -22,6 +22,6 @@ Puppet::Type.type(:package_accept_keywords).provide(:parsed,
   # @return [String]
   def self.to_line(hash)
     return super unless hash[:record_type] == :parsed
-    build_line(hash, :keywords)
+    build_line(hash, :accept_keywords)
   end
 end
