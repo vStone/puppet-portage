@@ -338,7 +338,7 @@ describe Puppet::Util::Portage do
       it "should raise an error when parsing #{atom}" do
         expect {
           Puppet::Util::Portage.parse_atom(atom)
-        }.to raise_error, Puppet::Util::Portage::AtomError
+        }.to raise_error(Puppet::Util::Portage::AtomError)
       end
     end
   end
@@ -387,7 +387,7 @@ describe Puppet::Util::Portage do
       it "should raise an error when parsing #{cmpver}" do
         expect {
           Puppet::Util::Portage.parse_cmpver(cmpver)
-        }.to raise_error, Puppet::Util::Portage::AtomError
+        }.to raise_error(Puppet::Util::Portage::AtomError)
       end
     end
   end

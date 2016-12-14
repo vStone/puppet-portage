@@ -36,7 +36,7 @@ describe Puppet::Type.type(:package_accept_keywords) do
     end
 
     it "should reject accept_keywords with a space" do
-      expect { described_class.new(:name => "sys-devel/gcc", :accept_keywords => "~amd 64") }.to raise_error
+      expect { described_class.new(:name => "sys-devel/gcc", :accept_keywords => "~amd 64") }.to raise_error(ArgumentError)
     end
 
     it "should accept an array for accept_keywords" do
