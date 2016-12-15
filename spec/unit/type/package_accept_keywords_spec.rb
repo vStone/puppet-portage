@@ -11,7 +11,7 @@ describe Puppet::Type.type(:package_accept_keywords) do
 
   describe "when validating attributes" do
     params     = [:name]
-    properties = [:accept_keywords, :keywords, :target, :ensure, :version, :slot]
+    properties = [:accept_keywords, :target, :ensure, :version, :slot]
 
     params.each do |param|
       it "should have the #{param} param" do
@@ -36,7 +36,7 @@ describe Puppet::Type.type(:package_accept_keywords) do
     end
 
     it "should reject accept_keywords with a space" do
-      expect { described_class.new(:name => "sys-devel/gcc", :accept_keywords => "~amd 64") }.to raise_error
+      expect { described_class.new(:name => "sys-devel/gcc", :accept_keywords => "~amd 64") }.to raise_error(/cannot contain whitespace/)
     end
 
     it "should accept an array for accept_keywords" do

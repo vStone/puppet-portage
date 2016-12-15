@@ -36,7 +36,7 @@ describe Puppet::Type.type(:package_use) do
     end
 
     it "should reject use flags with a space" do
-      expect { described_class.new(:name => "sys-devel/gcc", :use => "open mp") }.to raise_error
+      expect { described_class.new(:name => "sys-devel/gcc", :use => "open mp") }.to raise_error(/cannot contain whitespace/)
     end
 
     it "should accept an array for use" do

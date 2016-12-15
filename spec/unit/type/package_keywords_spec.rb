@@ -36,7 +36,7 @@ describe Puppet::Type.type(:package_keywords) do
     end
 
     it "should reject keywords with a space" do
-      expect { described_class.new(:name => "sys-devel/gcc", :keywords => "~amd 64") }.to raise_error
+      expect { described_class.new(:name => "sys-devel/gcc", :keywords => "~amd 64") }.to raise_error(/cannot contain whitespace/)
     end
 
     it "should accept an array for keywords" do

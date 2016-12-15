@@ -165,7 +165,7 @@ describe Puppet::Util::Webapp do
       it "should raise an error when parsing '#{name}'" do
         expect {
           Puppet::Util::Webapp.parse_name(name)
-        }.to raise_error, Puppet::Util::Webapp::WebappError
+        }.to raise_error(Puppet::Util::Webapp::WebappError)
       end
     end
   end
@@ -221,7 +221,7 @@ describe Puppet::Util::Webapp do
       it "should raise an error when parsing '#{path}'" do
         expect {
           Puppet::Util::Webapp.parse_path(path)
-        }.to raise_error, Puppet::Util::Webapp::WebappError
+        }.to raise_error(Puppet::Util::Webapp::WebappError)
       end
     end
   end
@@ -256,7 +256,7 @@ describe Puppet::Util::Webapp do
       it "should raise an error when parsing '#{app}'" do
         expect {
           Puppet::Util::Webapp.parse_app(app)
-        }.to raise_error, Puppet::Util::Webapp::WebappError
+        }.to raise_error(Puppet::Util::Webapp::WebappError)
       end
     end
   end
