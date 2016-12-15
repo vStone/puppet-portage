@@ -11,7 +11,7 @@ describe Puppet::Type.type(:package_accept_keywords) do
 
   describe "when validating attributes" do
     params     = [:name]
-    properties = [:accept_keywords, :keywords, :target, :ensure, :version, :slot]
+    properties = [:accept_keywords, :target, :ensure, :version, :slot]
 
     params.each do |param|
       it "should have the #{param} param" do
