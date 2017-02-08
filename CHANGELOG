@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+2.4.0
+-----
+2017-02-08.
+
+This is a backwards compatible bugfix & minor feature release.
+
+  * http and ftp proxy variables should be lowercase
+  * Improve testing
+  * Version variables for managed packages
+    (portage, eix, layman, webapp-config, eselect, portage-utils)
+  * Allow blank lines & comments in package.keywords
+  * Support package.accept_keywords
+  * Allow alternative path for /usr/bin/emerge
+
 2.3.0
 -----
 
