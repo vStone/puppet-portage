@@ -34,4 +34,5 @@ class portage::params {
   $portage_utils_keywords         = undef
   $portage_utils_keywords_version = undef
   $portage_utils_use              = undef
+  $emerge_command                 = '/usr/bin/emerge'
 }

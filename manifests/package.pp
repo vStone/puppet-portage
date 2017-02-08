@@ -273,7 +273,7 @@ define portage::package (
   }
 
   exec { "rebuild_${atom}":
-    command     => "emerge --changed-use -u1 ${atom}",
+    command     => "${portage::emerge_command} --changed-use -u1 ${atom}",
     refreshonly => true,
     timeout     => 43200,
     path        => ['/usr/local/sbin','/usr/local/bin',

@@ -50,6 +50,7 @@ class portage (
   $portage_utils_keywords         = $portage::params::portage_utils_keywords,
   $portage_utils_keywords_version = $portage::params::portage_utils_keywords_version,
   $portage_utils_use              = $portage::params::portage_utils_use,
+  $emerge_command                 = $portage::params::emerge_command,
 ) inherits portage::params {
 
   include ::portage::install
@@ -65,7 +66,7 @@ class portage (
   }
 
   exec { 'changed_makeconf':
-    command     => 'emerge -1 --changed-use $(qlist -vIC | sed \'s/^/=/\')',
+    command     => "${emerge_command} -1 --changed-use $(qlist -vIC | sed \'s/^/=/\')",
     refreshonly => true,
     timeout     => 43200,
     provider    => shell,
