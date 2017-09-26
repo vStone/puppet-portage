@@ -1,6 +1,6 @@
 {
   "name": "gentoo-portage",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "author": "Gentoo",
   "summary": "Puppet types and providers for Gentoo portage",
   "license": "GPL-2.0",

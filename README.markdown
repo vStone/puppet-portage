@@ -8,6 +8,10 @@ Status](https://travis-ci.org/gentoo/puppet-portage.png?branch=master)](https://
 
 ## /etc/portage/package.\*/\*
 
+If `target` contains a `/`, then the value of `target` will used as-is.
+Otherwise it will be prefixed with the relevant directory for that resource
+type.
+
 ### package\_use
 
     package_use { 'app-admin/puppet':

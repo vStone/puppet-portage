@@ -131,6 +131,11 @@ define portage::package (
     default => $name,
   }
 
+  $removing = $ensure ? {
+    /(absent|purged)/ => true,
+    default => false,
+  }
+
   if $use_target {
     $assigned_use_target = $use_target
   }
@@ -166,7 +171,7 @@ define portage::package (
     $assigned_unmask_target = $target
   }
 
-  if $use {
+  if $use && !$removing {
     package_use { $name:
       use     => $use,
       version => $use_version,
@@ -183,7 +188,7 @@ define portage::package (
     }
   }
 
-  if $keywords or $keywords_version {
+  if !$removing && ($keywords or $keywords_version) {
     if $keywords == 'all' {
       $assigned_keywords = undef
     }
@@ -205,7 +210,7 @@ define portage::package (
       notify => [Exec["rebuild_${atom}"], Package[$name]],
     }
   }
-  if $accept_keywords or $accept_keywords_version {
+  if !$removing && ($accept_keywords or $accept_keywords_version) {
     if $accept_keywords == 'all' {
       $assigned_accept_keywords = undef
     }
@@ -228,7 +233,7 @@ define portage::package (
     }
   }
 
-  if $mask_version or $mask_slot {
+  if !$removing && ($mask_version or $mask_slot) {
     if $mask_version == 'all' {
       $assigned_mask_version = undef
     }
@@ -250,7 +255,7 @@ define portage::package (
     }
   }
 
-  if $unmask_version or $unmask_slot {
+  if !$removing && ($unmask_version or $unmask_slot) {
     if $unmask_version == 'all' {
       $assigned_unmask_version = undef
     }
@@ -272,8 +277,12 @@ define portage::package (
     }
   }
 
+  $rebuild_command = $removing ? {
+	  true  => "/bin/true",
+	  false => "${portage::emerge_command} --changed-use -u1 ${atom}"
+  }
   exec { "rebuild_${atom}":
-    command     => "${portage::emerge_command} --changed-use -u1 ${atom}",
+    command     => $rebuild_command,
     refreshonly => true,
     timeout     => 43200,
     path        => ['/usr/local/sbin','/usr/local/bin',
