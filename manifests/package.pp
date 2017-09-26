@@ -171,7 +171,7 @@ define portage::package (
     $assigned_unmask_target = $target
   }
 
-  if $use && !$removing {
+  if($use and !$removing) {
     package_use { $name:
       use     => $use,
       version => $use_version,
@@ -188,7 +188,7 @@ define portage::package (
     }
   }
 
-  if !$removing && ($keywords or $keywords_version) {
+  if(!$removing and ($keywords or $keywords_version)) {
     if $keywords == 'all' {
       $assigned_keywords = undef
     }
@@ -210,7 +210,7 @@ define portage::package (
       notify => [Exec["rebuild_${atom}"], Package[$name]],
     }
   }
-  if !$removing && ($accept_keywords or $accept_keywords_version) {
+  if(!$removing and ($accept_keywords or $accept_keywords_version)) {
     if $accept_keywords == 'all' {
       $assigned_accept_keywords = undef
     }
@@ -233,7 +233,7 @@ define portage::package (
     }
   }
 
-  if !$removing && ($mask_version or $mask_slot) {
+  if(!$removing and ($mask_version or $mask_slot)) {
     if $mask_version == 'all' {
       $assigned_mask_version = undef
     }
@@ -255,7 +255,7 @@ define portage::package (
     }
   }
 
-  if !$removing && ($unmask_version or $unmask_slot) {
+  if(!$removing and ($unmask_version or $unmask_slot)) {
     if $unmask_version == 'all' {
       $assigned_unmask_version = undef
     }
@@ -278,8 +278,8 @@ define portage::package (
   }
 
   $rebuild_command = $removing ? {
-	  true  => "/bin/true",
-	  false => "${portage::emerge_command} --changed-use -u1 ${atom}"
+    true  => '/bin/true',
+    false => "${portage::emerge_command} --changed-use -u1 ${atom}"
   }
   exec { "rebuild_${atom}":
     command     => $rebuild_command,
