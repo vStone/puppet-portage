@@ -101,6 +101,7 @@ This module provides a wrapper to the native package type:
       target           => 'puppet',
       keywords_target  => 'puppet-keywords',
       ensure           => '3.0.1',
+      emerge_command   => '/usr/bin/emerge',
     }
 
 If no `{keywords,use,mask,unmask}\_target` is specified, then the value of `target`
@@ -110,6 +111,10 @@ portage::package, if you want versionless entries in any of the above
 `package\_\*` types, you can just omit the version attribute.) Any change in
 `portage::package` will also trigger the appropriate re-emerge to the affected
 package.
+
+`emerge_command` allows special behavior for install & rebuild. The package
+atom will be appended automatically. This allows installing packages with
+`--oneshot`, and/or other emerge arguments.
 
 ## facts
 
