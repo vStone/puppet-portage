@@ -282,6 +282,10 @@ define portage::package (
     false => "${portage::emerge_command} --changed-use -u1 ${atom}",
     default  => '/bin/false Should-Not-Trigger', # This should not happen.
   }
+  notify { "rebuild_${atom}_msg":
+    message  => "rebuild_command=${rebuild_command}",
+    withpath => true,
+  }
   exec { "rebuild_${atom}":
     command     => $rebuild_command,
     refreshonly => true,
