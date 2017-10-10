@@ -280,6 +280,7 @@ define portage::package (
   $rebuild_command = $removing ? {
     true  => '/bin/true',
     false => "${portage::emerge_command} --changed-use -u1 ${atom}"
+    default  => '/bin/false Should-Not-Trigger', # This should not happen.
   }
   exec { "rebuild_${atom}":
     command     => $rebuild_command,
