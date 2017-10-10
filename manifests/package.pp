@@ -123,7 +123,11 @@ define portage::package (
   $accept_keywords_target  = undef,
   $mask_target      = undef,
   $unmask_target    = undef,
+  $emerge_command   = undef,
 ) {
+  
+  include ::portage::params
+  $_emerge_command = pick($emerge_command, $portage::emerge_command, $portage::params::emerge_command)
 
   $atom = $ensure ? {
     /(present|absent|purged|held|installed|latest)/ => $name,
@@ -279,7 +283,7 @@ define portage::package (
 
   $rebuild_command = $removing ? {
     true  => '/bin/true',
-    false => "${portage::emerge_command} --changed-use -u1 ${atom}",
+    false => "${_emerge_command} --changed-use -u1 ${atom}",
     default  => '/bin/false Should-Not-Trigger', # This should not happen.
   }
   notify { "rebuild_${atom}_msg":
