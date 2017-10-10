@@ -125,9 +125,10 @@ define portage::package (
   $unmask_target    = undef,
   $emerge_command   = undef,
 ) {
-  
+
   include ::portage::params
   $_emerge_command = pick($emerge_command, $portage::emerge_command, $portage::params::emerge_command)
+  validate_re($_emerge_command, '^/', 'emerge_command must start with an absolute path')
 
   $atom = $ensure ? {
     /(present|absent|purged|held|installed|latest)/ => $name,
@@ -286,14 +287,11 @@ define portage::package (
     false => "${_emerge_command} --changed-use -u1 ${atom}",
     default  => '/bin/false Should-Not-Trigger', # This should not happen.
   }
-  notify { "rebuild_${atom}_msg":
-    message  => "rebuild_command=${rebuild_command}",
-    withpath => true,
-  }
   exec { "rebuild_${atom}":
     command     => $rebuild_command,
     refreshonly => true,
     timeout     => 43200,
+    # Emerge inherits the path, so it must be valid.
     path        => ['/usr/local/sbin','/usr/local/bin',
                     '/usr/sbin','/usr/bin','/sbin','/bin'],
   }
