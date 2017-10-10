@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+2.4.5
+-----
+2017-10-10
+
+This is a backwards compatible bugfix & minor feature release.
+Versions 2.4.1-2.4.4 were not formally released, and are buggy.
+
+  * Fix rebuild command, which sometimes was empty.
+  * Allow override of emerge command for rebuild.
+  * Cleanup /etc/portage/package.* for packages being removed.
+
 2.4.0
 -----
 2017-02-08.
